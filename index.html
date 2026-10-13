@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIMAS Open Science Conference 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sky: #38BDF8;
+            --sky-light: #7DD3FC;
+            --baby: #BAE6FD;
+            --baby-light: #E0F2FE;
+            --ice: #F0F9FF;
+            --deep: #0284C7;
+            --deeper: #0369A1;
+            --dark: #0C4A6E;
+            --text-dark: #0F172A;
+            --text: #1E293B;
+            --text-mid: #475569;
+            --text-light: #64748B;
+            --white: #FFFFFF;
+            --gradient-sky: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%);
+            --gradient-hero: linear-gradient(135deg, #0369A1 0%, #0284C7 30%, #38BDF8 70%, #7DD3FC 100%);
+            --gradient-soft: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; }
+
+        /* ===== LOADER ===== */
+        .loader {
+            position: fixed; inset: 0;
+            background: var(--white);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-dots { display: flex; gap: 8px; }
+        .loader-dots span {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--sky);
+            animation: loaderBounce 1.4s ease-in-out infinite;
+        }
+        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes loaderBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 0.6rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+        .navbar.scrolled .nav-logo-text .bottom,
+        .navbar.scrolled .nav-links a { color: var(--text); }
+        .navbar.scrolled .nav-links a:hover { color: var(--deep); }
+        .navbar.scrolled .hamburger span { background: var(--text-dark); }
+
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo .logo-icon {
+            width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .nav-logo .logo-icon img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+        }
+        .nav-logo-text { display: flex; align-items: center; gap: 4px; line-height: 1.15; }
+        .nav-logo-text .top {
+            font-size: 0.8rem; font-weight: 800;
+            color: var(--white);
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+        .navbar.scrolled .nav-logo-text .top { color: var(--navy); }
+        .nav-logo-text .bottom {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem; font-weight: 700; color: var(--white);
+            line-height: 1;
+        }
+        .navbar.scrolled .nav-logo-text .bottom { color: var(--navy); }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.85);
+            transition: color 0.3s ease; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--sky);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { width: 100%; }
+        .navbar.scrolled .nav-links a::after { background: var(--deep); }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 28px; border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; font-size: 0.9rem;
+            border: none; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--white); color: var(--deep) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+        .navbar.scrolled .btn-primary {
+            background: var(--gradient-sky); color: var(--white);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+        .btn-sky {
+            background: var(--gradient-sky); color: var(--white);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+        .btn-sky:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.45);
+        }
+        .btn-outline-blue {
+            background: transparent; color: var(--deep);
+            border: 2px solid var(--baby);
+        }
+        .btn-outline-blue:hover { border-color: var(--sky); color: var(--deeper); }
+        .btn-white {
+            background: var(--white); color: var(--deep);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .btn-outline-white {
+            background: transparent; color: var(--white);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        .btn-outline-white:hover { border-color: var(--white); }
+
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            cursor: pointer; background: none; border: none; padding: 4px;
+        }
+        .hamburger span { width: 28px; height: 2px; background: var(--white); transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 8rem 2rem 4rem;
+            position: relative; overflow: hidden;
+            background: var(--gradient-hero);
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('banner.jpg') center center / cover no-repeat;
+            opacity: 0.12; z-index: 0;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--white) 0%, transparent 100%);
+            z-index: 1;
+        }
+        .hero-particles { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+        .particle {
+            position: absolute; width: 4px; height: 4px;
+            background: rgba(255,255,255,0.4); border-radius: 50%;
+            animation: float linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 900px; color: var(--white); }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50px; font-size: 0.8rem; font-weight: 500;
+            color: rgba(255,255,255,0.9); margin-bottom: 2rem;
+            letter-spacing: 1px; backdrop-filter: blur(8px);
+        }
+        .hero-badge .dot {
+            width: 8px; height: 8px; background: var(--white);
+            border-radius: 50%; animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800;
+            line-height: 1.15; margin-bottom: 1.5rem;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #FDE68A 0%, #FCD34D 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255,255,255,0.8); margin-bottom: 1rem;
+            font-weight: 300; line-height: 1.6;
+        }
+        .hero-meta {
+            display: flex; align-items: center; justify-content: center;
+            gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+        }
+        .hero-meta-item {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.95rem; color: var(--white);
+        }
+        .hero-meta-item svg { width: 20px; height: 20px; }
+        .hero-buttons { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+        /* ===== EU BANNER ===== */
+        .eu-banner {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem; padding: 0.8rem 2rem;
+            background: var(--baby-light);
+            border-bottom: 1px solid var(--baby);
+            font-size: 0.8rem; color: var(--text-mid);
+            flex-wrap: wrap; text-align: center;
+        }
+        .eu-banner strong { color: var(--deep); }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            padding: 4rem 2rem; text-align: center;
+            background: var(--white);
+        }
+        .countdown-label {
+            font-size: 0.9rem; color: var(--text-light);
+            margin-bottom: 1.5rem; text-transform: uppercase;
+            letter-spacing: 3px; font-weight: 500;
+        }
+        .countdown {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1.5rem; flex-wrap: wrap;
+        }
+        .countdown-item {
+            display: flex; flex-direction: column; align-items: center;
+            min-width: 100px;
+        }
+        .countdown-value {
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+            background: var(--gradient-sky);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1;
+        }
+        .countdown-unit {
+            font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-light); margin-top: 0.5rem;
+        }
+        .countdown-sep {
+            font-size: 2.5rem; font-weight: 300;
+            color: var(--baby); margin-top: -1rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section { padding: 6rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag {
+            display: inline-block; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: var(--deep); margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+            color: var(--text-dark);
+        }
+        .section-desc {
+            font-size: 1.05rem; color: var(--text-mid);
+            max-width: 650px; margin: 0 auto; line-height: 1.7;
+        }
+
+        /* ===== ABOUT ===== */
+        .about { background: var(--white); }
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+        }
+        .about-content h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700;
+            margin-bottom: 1.5rem; line-height: 1.2; color: var(--text-dark);
+        }
+        .about-content p {
+            color: var(--text-mid); line-height: 1.8;
+            margin-bottom: 1rem; font-size: 0.95rem;
+        }
+        .about-content .btn { margin-top: 1rem; }
+        .about-image {
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 20px 60px rgba(3, 105, 161, 0.1);
+        }
+        .about-image img { display: block; width: 100%; }
+
+        /* ===== THEMES ===== */
+        .themes { background: var(--ice); }
+        .themes-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .themes-column-title {
+            font-size: 1.6rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2px;
+            color: var(--navy); margin-bottom: 1.8rem;
+        }
+        .features-list {
+            display: flex; flex-direction: column; gap: 1.2rem;
+        }
+        .feature-card {
+            display: flex; align-items: center; gap: 1.2rem;
+            background: var(--white);
+            border-radius: 16px; padding: 1.2rem 1.5rem;
+            border: 1px solid var(--baby);
+            box-shadow: 0 4px 20px rgba(3, 105, 161, 0.06);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(3, 105, 161, 0.12);
+        }
+        .feature-card .feat-icon {
+            width: 60px; height: 60px; flex-shrink: 0;
+            color: var(--navy);
+        }
+        .feature-card .feat-icon svg { width: 100%; height: 100%; }
+        .feature-card h3 {
+            font-size: 1.1rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-dark);
+        }
+        .topics-list {
+            display: flex; flex-direction: column; gap: 1.2rem;
+        }
+        .topic-item {
+            display: flex; align-items: center; gap: 1.2rem;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        .topic-item:hover { transform: translateX(8px); }
+        .topic-item .topic-label {
+            font-size: 1.1rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-dark); flex: 1;
+        }
+        .topic-item .topic-icon {
+            width: 60px; height: 60px; flex-shrink: 0;
+            color: var(--navy);
+        }
+        .topic-item .topic-icon svg { width: 100%; height: 100%; }
+
+        /* ===== STATS ===== */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--gradient-hero);
+            color: var(--white);
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 2rem; max-width: 900px; margin: 0 auto; text-align: center;
+        }
+        .stat-value {
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+            color: var(--white); line-height: 1; margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 0.8rem; color: rgba(255,255,255,0.75);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* ===== SPEAKERS ===== */
+        .speakers { background: var(--white); }
+        .speakers-banner {
+            margin-bottom: 3rem; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 10px 40px rgba(3, 105, 161, 0.08);
+        }
+        .speakers-banner img { display: block; width: 100%; }
+        .speakers-category { margin-bottom: 3rem; }
+        .speakers-category:last-child { margin-bottom: 0; }
+        .speakers-category-title {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 3px; color: var(--deep);
+            margin-bottom: 1.5rem; text-align: center;
+        }
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .speaker-card {
+            background: var(--white); border: 1px solid var(--baby);
+            border-radius: 16px; padding: 2rem 1.5rem;
+            text-align: center; transition: all 0.3s ease;
+        }
+        .speaker-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(3, 105, 161, 0.1);
+        }
+        .speaker-avatar {
+            width: 140px; height: 140px; border-radius: 50%;
+            margin: 0 auto 1.2rem;
+            overflow: hidden;
+            border: 3px solid var(--baby);
+            background: #f1f5f9;
+        }
+        .speaker-avatar img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+        .speaker-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.3rem; }
+        .speaker-card .role { font-size: 0.78rem; color: var(--text-mid); line-height: 1.4; }
+        .speaker-card .affiliation { font-size: 0.72rem; color: var(--deep); margin-top: 0.3rem; font-weight: 500; }
+
+        /* ===== WHY ATTEND ===== */
+        .why-attend { background: var(--ice); }
+        .why-attend-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+        }
+        .why-attend-image {
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 20px 60px rgba(3, 105, 161, 0.1);
+        }
+        .why-attend-image img { display: block; width: 100%; }
+        .why-attend-content h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700; margin-bottom: 1.5rem; color: var(--text-dark);
+        }
+        .why-attend-list { list-style: none; }
+        .why-attend-list li {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 1rem 0; border-bottom: 1px solid var(--baby);
+            font-size: 0.9rem; color: var(--text-mid); line-height: 1.5;
+        }
+        .why-attend-list li .icon {
+            width: 32px; height: 32px; min-width: 32px;
+            background: var(--gradient-soft); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; margin-top: 2px;
+        }
+
+        /* ===== AGENDA ===== */
+        .agenda { background: var(--white); }
+        .agenda-tabs {
+            display: flex; justify-content: center;
+            gap: 0.5rem; margin-bottom: 3rem;
+        }
+        .agenda-tab {
+            padding: 12px 32px; border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            border: 2px solid var(--baby); background: transparent;
+            color: var(--text-mid); transition: all 0.3s ease;
+        }
+        .agenda-tab.active {
+            background: var(--gradient-sky); border-color: transparent; color: var(--white);
+        }
+        .agenda-tab:hover:not(.active) { border-color: var(--sky); color: var(--deep); }
+
+        .agenda-day { display: none; }
+        .agenda-day.active { display: block; }
+        .agenda-item {
+            display: flex; gap: 2rem; padding: 1.5rem 0;
+            border-bottom: 1px solid var(--baby-light); align-items: flex-start;
+        }
+        .agenda-item:last-child { border-bottom: none; }
+        .agenda-time {
+            min-width: 140px; font-size: 0.85rem; font-weight: 600;
+            color: var(--deep); padding-top: 2px; white-space: nowrap;
+        }
+        .agenda-details h4 { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.3rem; }
+        .agenda-details p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+        .agenda-tag {
+            display: inline-block; padding: 3px 10px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-top: 0.5rem;
+        }
+        .tag-ceremony { background: #FEF3C7; color: #92400E; }
+        .tag-keynote { background: #DBEAFE; color: #1E40AF; }
+        .tag-speaker { background: var(--baby-light); color: var(--deeper); }
+        .tag-break { background: #F1F5F9; color: #64748B; }
+        .tag-panel { background: #F3E8FF; color: #7C3AED; }
+        .tag-citizen { background: #D1FAE5; color: #065F46; }
+
+        .agenda-downloads { margin-top: 2.5rem; text-align: center; }
+        .agenda-downloads p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem; }
+        .download-thumbs { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .download-thumb {
+            width: 200px; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--baby); transition: all 0.3s ease; cursor: pointer;
+        }
+        .download-thumb:hover {
+            border-color: var(--sky); transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(3, 105, 161, 0.12);
+        }
+        .download-thumb img { display: block; width: 100%; }
+        .download-thumb .label {
+            padding: 8px; text-align: center; background: var(--ice);
+            font-size: 0.75rem; font-weight: 600; color: var(--text-mid);
+        }
+
+        /* ===== PARTNERS ===== */
+        .partners { background: var(--ice); }
+        .partners-group { margin-bottom: 3rem; }
+        .partners-group:last-child { margin-bottom: 0; }
+        .partners-group-title {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 3px; color: var(--deep);
+            margin-bottom: 2rem; text-align: center;
+        }
+        .partners-sample {
+            max-width: 700px; margin: 0 auto 2rem;
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 8px 25px rgba(3, 105, 161, 0.06);
+        }
+        .partners-sample img { display: block; width: 100%; }
+        .partners-logos {
+            display: flex; align-items: center; justify-content: center;
+            gap: 2.5rem; flex-wrap: wrap;
+            max-width: 1000px; margin: 0 auto;
+        }
+        .partner-logo {
+            width: 110px; height: 110px; padding: 12px;
+            background: var(--white); border: 1px solid var(--baby);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .partner-logo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(3, 105, 161, 0.1);
+        }
+        .partner-logo img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* ===== PARTNERSHIP ===== */
+        .partnership { background: var(--white); }
+        .partnership-banner {
+            margin-bottom: 3rem; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 10px 40px rgba(3, 105, 161, 0.08);
+        }
+        .partnership-banner img { display: block; width: 100%; }
+        .partnership-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 2rem; max-width: 800px; margin: 0 auto;
+        }
+        .partnership-card {
+            padding: 2.5rem 2rem; border-radius: 20px;
+            border: 1px solid var(--baby); text-align: center;
+            transition: all 0.3s ease;
+        }
+        .partnership-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(3,105,161,0.08); }
+        .partnership-card.gold {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border-color: #FCD34D;
+        }
+        .partnership-card.silver {
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+            border-color: #CBD5E1;
+        }
+        .partnership-tier {
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem;
+        }
+        .partnership-card.gold .partnership-tier { color: #B45309; }
+        .partnership-card.silver .partnership-tier { color: #64748B; }
+        .partnership-price { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--text-dark); }
+        .partnership-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+        .partnership-features li {
+            font-size: 0.85rem; color: var(--text-mid);
+            padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .partnership-features li::before {
+            content: '\2713'; color: var(--deep); font-weight: 700; font-size: 0.8rem;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 6rem 2rem; text-align: center;
+            background: var(--gradient-hero); color: var(--white);
+            position: relative; overflow: hidden;
+        }
+        .cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+        }
+        .cta-content { position: relative; z-index: 1; }
+        .cta .section-tag { color: rgba(255,255,255,0.7); }
+        .cta h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; }
+        .cta p {
+            color: rgba(255,255,255,0.8); font-size: 1.05rem;
+            margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem 2rem 2rem;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem; max-width: 1200px; margin: 0 auto 3rem;
+        }
+        .footer .nav-logo-text .top { color: rgba(255,255,255,0.7); }
+        .footer .nav-logo-text .bottom { color: var(--sky-light); font-family: 'Dancing Script', cursive; }
+        .footer-brand .nav-logo { margin-bottom: 1rem; }
+        .footer-brand p { font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .footer-social { display: flex; gap: 0.8rem; }
+        .footer-social a {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; font-size: 1rem; color: rgba(255,255,255,0.6);
+        }
+        .footer-social a:hover { background: var(--gradient-sky); color: var(--white); transform: translateY(-2px); }
+        .footer-col h4 {
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 1.2rem; color: var(--white);
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.7rem; }
+        .footer-col a { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.3s ease; }
+        .footer-col a:hover { color: var(--sky-light); }
+        .footer-bottom {
+            text-align: center; padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            max-width: 1200px; margin: 0 auto;
+        }
+        .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+        .footer-logos {
+            display: flex; align-items: center; justify-content: center;
+            gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+        }
+        .footer-logo-item {
+            padding: 10px 20px; background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.5px;
+        }
+
+        /* ===== SCROLL TOP ===== */
+        .scroll-top {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--gradient-sky); border: none;
+            color: var(--white); font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+            z-index: 100; box-shadow: 0 4px 15px rgba(56,189,248,0.3);
+        }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-3px); }
+
+        /* ===== MOBILE NAV ===== */
+        .mobile-menu {
+            display: none; position: fixed; inset: 0;
+            background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(20px);
+            z-index: 999; flex-direction: column; align-items: center;
+            justify-content: center; gap: 2rem;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        .mobile-menu a { font-size: 1.3rem; font-weight: 600; color: var(--white); transition: color 0.3s ease; }
+        .mobile-menu a:hover { color: var(--sky-light); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .about-grid, .why-attend-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
+            .hero { padding: 7rem 1.5rem 3rem; }
+            .hero-meta { flex-direction: column; gap: 0.8rem; }
+            .countdown { gap: 1rem; }
+            .countdown-sep { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .speakers-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 200px)); }
+            .agenda-item { flex-direction: column; gap: 0.5rem; }
+            .agenda-time { min-width: unset; }
+            .partnership-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .section { padding: 4rem 1.5rem; }
+            .partner-logo { width: 90px; height: 90px; padding: 8px; }
+        }
+        @media (max-width: 480px) {
+            .speakers-grid { grid-template-columns: 1fr; }
+            .themes-layout { grid-template-columns: 1fr; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="loader" id="loader">
+        <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">
+            <div class="logo-icon"><img src="logos/UNIMAS Logo.png" alt="UNIMAS"></div>
+            <div class="nav-logo-text">
+                <span class="top">UNIMAS<br>Open Science</span>
+                <span class="bottom">Conference</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#themes">Themes</a></li>
+            <li><a href="#speakers">Speakers</a></li>
+            <li><a href="#agenda">Agenda</a></li>
+            <li><a href="#partners">Partners</a></li>
+            <li><a href="#partnership">Sponsorship</a></li>
+            <li><a href="#register" class="btn btn-primary">Register Now</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">About</a>
+        <a href="#themes" onclick="closeMobile()">Themes</a>
+        <a href="#speakers" onclick="closeMobile()">Speakers</a>
+        <a href="#agenda" onclick="closeMobile()">Agenda</a>
+        <a href="#partners" onclick="closeMobile()">Partners</a>
+        <a href="#partnership" onclick="closeMobile()">Sponsorship</a>
+        <a href="#register" class="btn btn-sky" onclick="closeMobile()">Register Now</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>From Data to Impact:<br><span class="highlight">Enriching Global Communities</span></h1>
+            <p class="hero-sub">UNIMAS Open Science Conference &mdash; Unifying Science, Empowering Innovation</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    21 &ndash; 22 October 2026
+                </div>
+                <div class="hero-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Hilton Kuching, Sarawak
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#register" class="btn btn-white">Register Now &rarr;</a>
+                <a href="#agenda" class="btn btn-outline-white">View Agenda</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="eu-banner">
+        <strong>OPEN ASIA</strong> &middot; Co-funded by the European Union &middot;
+        Universiti Malaysia Sarawak &middot; Project Number 101128493
+    </div>
+
+    <!-- Countdown -->
+    <section class="countdown-section">
+        <p class="countdown-label">Conference begins in</p>
+        <div class="countdown">
+            <div class="countdown-item"><span class="countdown-value" id="cd-days">00</span><span class="countdown-unit">Days</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item"><span class="countdown-value" id="cd-hours">00</span><span class="countdown-unit">Hours</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item"><span class="countdown-value" id="cd-minutes">00</span><span class="countdown-unit">Minutes</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item"><span class="countdown-value" id="cd-seconds">00</span><span class="countdown-unit">Seconds</span></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content reveal">
+                    <div class="section-tag">About the Conference</div>
+                    <h2>Where Open Science Shapes the Future</h2>
+                    <p>The UNIMAS Open Science Conference brings together researchers, policymakers, and innovators to advance the principles of making scientific research and data accessible to all. Hosted by Universiti Malaysia Sarawak, this landmark event is co-funded by the European Union under the Open Asia initiative.</p>
+                    <p>Our mission is to enable Findable, Accessible, Interoperable and Reusable (FAIR) research data, reinforce open scientific inquiry and integrity, enable better research management, and promote data-intensive research across the globe.</p>
+                    <a href="#themes" class="btn btn-outline-blue">Explore Themes &rarr;</a>
+                </div>
+                <div class="about-image reveal">
+                    <img src="event2.jpg" alt="UNIMAS Open Science Conference theme">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="section themes" id="themes">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Conference Themes</h2>
+                <p class="section-desc">Exploring the frontiers of open science, digital transformation, and citizen-driven research</p>
+            </div>
+            <div class="themes-layout">
+                <!-- Key Features (Left) -->
+                <div class="reveal">
+                    <div class="themes-column-title">Key Features</div>
+                    <div class="features-list">
+                        <div class="feature-card">
+                            <div class="feat-icon"><svg viewBox="0 0 64 64" fill="currentColor"><circle cx="32" cy="14" r="6"/><circle cx="18" cy="20" r="5"/><circle cx="46" cy="20" r="5"/><path d="M32 24c-6 0-11 4-11 9v3h22v-3c0-5-5-9-11-9z"/><path d="M18 28c-4 0-8 3-8 7v2h12v-5c0-2 .5-3 1.2-4H18zM46 28h-5.2c.7 1 1.2 2 1.2 4v5h12v-2c0-4-4-7-8-7z"/><circle cx="32" cy="46" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 46h12M32 40v12" stroke="currentColor" stroke-width="2"/></svg></div>
+                            <h3>Conference</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-icon"><svg viewBox="0 0 64 64" fill="currentColor"><rect x="10" y="12" width="44" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="27" r="8" fill="none" stroke="currentColor" stroke-width="3"/><line x1="32" y1="42" x2="32" y2="50" stroke="currentColor" stroke-width="3"/><line x1="22" y1="50" x2="42" y2="50" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="18" r="2"/><line x1="40" y1="27" x2="48" y2="27" stroke="currentColor" stroke-width="2"/><line x1="40" y1="32" x2="46" y2="32" stroke="currentColor" stroke-width="2"/></svg></div>
+                            <h3>Interactive Exhibition</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-icon"><svg viewBox="0 0 64 64" fill="currentColor"><rect x="8" y="28" width="14" height="24" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><rect x="25" y="18" width="14" height="34" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><rect x="42" y="8" width="14" height="44" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><path d="M11 22l4-6 4 3 6-8 6 4 6-6 6 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="53" cy="12" r="2.5"/></svg></div>
+                            <h3>Product Showcases</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-icon"><svg viewBox="0 0 64 64" fill="currentColor"><path d="M16 38c-4-3-6-6-6-10 0-6 6-10 12-10 4 0 7 2 9 4h2c2-2 5-4 9-4 6 0 12 4 12 10 0 4-2 7-6 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 42c0 0 8 4 22 4s22-4 22-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M18 48l6-6M46 48l-6-6M28 46v6M36 46v6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+                            <h3>Networking</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Key Topics (Right) -->
+                <div class="reveal">
+                    <div class="themes-column-title">Key Topics</div>
+                    <div class="topics-list">
+                        <div class="topic-item">
+                            <span class="topic-label">Digital Transformation</span>
+                            <div class="topic-icon"><svg viewBox="0 0 64 64" fill="currentColor"><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="32" cy="32" rx="8" ry="18" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="32" x2="50" y2="32" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M47 17l6 0 0 6M53 17l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="44" y="46" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="51" y1="46" x2="51" y2="56" stroke="currentColor" stroke-width="1.5"/></svg></div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-label">Open Science</span>
+                            <div class="topic-icon"><svg viewBox="0 0 64 64" fill="currentColor"><rect x="18" y="30" width="28" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M22 30v-8a10 10 0 0 1 20 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="42" r="4"/><line x1="32" y1="46" x2="32" y2="50" stroke="currentColor" stroke-width="3"/></svg></div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-label">Citizen Science</span>
+                            <div class="topic-icon"><svg viewBox="0 0 64 64" fill="currentColor"><circle cx="32" cy="16" r="6"/><circle cx="16" cy="22" r="5"/><circle cx="48" cy="22" r="5"/><path d="M32 26c-7 0-13 5-13 11v4h26v-4c0-6-6-11-13-11z"/><path d="M16 30c-5 0-9 3-9 8v3h14v-6c0-2 .6-4 1.5-5H16zM48 30h-6.5c.9 1 1.5 3 1.5 5v6h14v-3c0-5-4-8-9-8z"/><circle cx="24" cy="48" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="52" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="48" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-label">Data Management</span>
+                            <div class="topic-icon"><svg viewBox="0 0 64 64" fill="currentColor"><rect x="12" y="8" width="28" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><line x1="18" y1="16" x2="34" y2="16" stroke="currentColor" stroke-width="2"/><line x1="18" y1="22" x2="34" y2="22" stroke="currentColor" stroke-width="2"/><line x1="18" y1="28" x2="28" y2="28" stroke="currentColor" stroke-width="2"/><rect x="32" y="24" width="22" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><line x1="38" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2"/><line x1="38" y1="38" x2="48" y2="38" stroke="currentColor" stroke-width="2"/><line x1="38" y1="44" x2="44" y2="44" stroke="currentColor" stroke-width="2"/></svg></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid reveal">
+            <div class="stat-item"><div class="stat-value" data-target="500">0</div><div class="stat-label">Expected Participants</div></div>
+            <div class="stat-item"><div class="stat-value" data-target="16">0</div><div class="stat-label">Speakers</div></div>
+            <div class="stat-item"><div class="stat-value" data-target="10">0</div><div class="stat-label">Nations</div></div>
+            <div class="stat-item"><div class="stat-value" data-target="2">0</div><div class="stat-label">Days</div></div>
+        </div>
+    </section>
+
+    <!-- Speakers -->
+    <section class="section speakers" id="speakers">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Meet Our Speakers</div>
+                <h2 class="section-title">World-Class Experts</h2>
+                <p class="section-desc">Leading voices in open science, research data management, and digital innovation from around the globe</p>
+            </div>
+            <div class="speakers-banner reveal"><img src="speakers.png" alt="Meet Our Speakers"></div>
+
+            <div class="speakers-category reveal">
+                <div class="speakers-category-title">Keynote Speakers</div>
+                <div class="speakers-grid">
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/22.png" alt="Datu Hii Chang Kee"></div><h4>Datu Hii Chang Kee</h4><p class="role">Deputy State Secretary (Operation)</p><p class="affiliation">Sarawak State Government</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/23.png" alt="Mdm. Anelia Anak Siam"></div><h4>Mdm. Anelia Anak Siam</h4><p class="role">Director</p><p class="affiliation">Sarawak Museum Department</p></div>
+                </div>
+            </div>
+            <div class="speakers-category reveal">
+                <div class="speakers-category-title">Speakers</div>
+                <div class="speakers-grid">
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/24.png" alt="Prof. Dr. Noorsaadah Abd. Rahman FASc"></div><h4>Prof. Dr. Noorsaadah Abd. Rahman FASc</h4><p class="role">Fellow</p><p class="affiliation">Academy of Sciences Malaysia</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/25.png" alt="Prof. Ir. Dr. Shaliza Ibrahim"></div><h4>Prof. Ir. Dr. Shaliza Ibrahim</h4><p class="role">Professor</p><p class="affiliation">Universiti Malaya</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/26.png" alt="Prof. Dr. Wan Hashim Wan Ibrahim"></div><h4>Prof. Dr. Wan Hashim Wan Ibrahim</h4><p class="role">Professor</p><p class="affiliation">Universiti Malaysia Sarawak</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/29.png" alt="Prof. Dr. Ramlah Zainuddin"></div><h4>Prof. Dr. Ramlah Zainuddin</h4><p class="role">Professor</p><p class="affiliation">Universiti Malaysia Sarawak</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/31.png" alt="Prof. Dr. Liew Chee Sun"></div><h4>Prof. Dr. Liew Chee Sun</h4><p class="role">Professor</p><p class="affiliation">Sunway University, Malaysia</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/27.png" alt="Prof. Ir. Dr. Rosalam Sarbatly"></div><h4>Prof. Ir. Dr. Rosalam Sarbatly</h4><p class="role">Professor</p><p class="affiliation">Universiti Malaysia Sabah</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/30.png" alt="Mdm. Zaliha binti Mohamad Ali"></div><h4>Mdm. Zaliha binti Mohamad Ali</h4><p class="role">Representative</p><p class="affiliation">Sarawak Multimedia Authority</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/32.png" alt="Dr. Jongkar Grinang"></div><h4>Dr. Jongkar Grinang</h4><p class="role">Senior Lecturer</p><p class="affiliation">Universiti Malaysia Sarawak</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/28.png" alt="Mr Kelvin Egay John"></div><h4>Mr Kelvin Egay John</h4><p class="role">Researcher</p><p class="affiliation">Universiti Malaysia Sarawak</p></div>
+                </div>
+            </div>
+            <div class="speakers-category reveal">
+                <div class="speakers-category-title">International Speakers &amp; Panelists</div>
+                <div class="speakers-grid">
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/34.png" alt="Prof. Dr. Marjolein Zweekhorst"></div><h4>Prof. Dr. Marjolein Zweekhorst</h4><p class="role">Professor</p><p class="affiliation">Vrije Universiteit (VU) Amsterdam, Netherlands</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/35.png" alt="Prof. Dr. Maninder Singh"></div><h4>Prof. Dr. Maninder Singh</h4><p class="role">Professor</p><p class="affiliation">Thapar Institute of Eng. &amp; Technology, India</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/36.png" alt="Prof. Dr. Jayakumar Singh Bondili"></div><h4>Prof. Dr. Jayakumar Singh Bondili</h4><p class="role">Professor</p><p class="affiliation">Narsee Monjee Institute of Management Studies (NMIMS), India</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/33.png" alt="Prof. Dr. Nada Trunk Širca"></div><h4>Prof. Dr. Nada Trunk &Scaron;irca</h4><p class="role">Professor</p><p class="affiliation">Intl. School for Social &amp; Business Studies, Slovenia</p></div>
+                    <div class="speaker-card"><div class="speaker-avatar"><img src="speakers/Speakers/37.png" alt="Dr Erika Lilja"></div><h4>Dr Erika Lilja</h4><p class="role">Researcher</p><p class="affiliation">Tampere University, Finland</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Attend -->
+    <section class="section why-attend">
+        <div class="container">
+            <div class="why-attend-grid">
+                <div class="why-attend-image reveal"><img src="event4.jpg" alt="Networking and brand opportunities"></div>
+                <div class="why-attend-content reveal">
+                    <div class="section-tag">Why Attend</div>
+                    <h2>Expand Your Network &amp; Brand</h2>
+                    <ul class="why-attend-list">
+                        <li><span class="icon">&#x1F3AF;</span><span><strong>Thought Leadership Platform</strong> &mdash; Share your research and ideas on a global stage</span></li>
+                        <li><span class="icon">&#x1F91D;</span><span><strong>Networking Opportunities</strong> &mdash; Connect with researchers, policymakers, and industry leaders</span></li>
+                        <li><span class="icon">&#x1F4E3;</span><span><strong>Enhanced Brand Visibility</strong> &mdash; Showcase your organisation to a targeted academic audience</span></li>
+                        <li><span class="icon">&#x1F30D;</span><span><strong>Targeted Audience Reach</strong> &mdash; Engage with decision-makers across open science and digital research</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agenda -->
+    <section class="section agenda" id="agenda">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Programme</div>
+                <h2 class="section-title">Conference Agenda</h2>
+                <p class="section-desc">Two days of keynotes, panel discussions, citizen science, and networking</p>
+            </div>
+            <div class="agenda-tabs reveal">
+                <button class="agenda-tab active" onclick="switchDay(1)">Day 1 &middot; Wed, 21 Oct</button>
+                <button class="agenda-tab" onclick="switchDay(2)">Day 2 &middot; Thu, 22 Oct</button>
+            </div>
+            <div class="agenda-day active" id="day1">
+                <div class="agenda-item reveal"><div class="agenda-time">8:00 &ndash; 8:30 AM</div><div class="agenda-details"><h4>Registration</h4><p>Arrival and conference kit collection</p><span class="agenda-tag tag-break">Registration</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">8:30 &ndash; 11:00 AM</div><div class="agenda-details"><h4>Opening Ceremony</h4><p>Welcoming remarks by the Vice-Chancellor of UNIMAS. Official Remarks &amp; Keynote Address by Datu Hii Chang Kee (Deputy State Secretary, Operation)</p><span class="agenda-tag tag-ceremony">Ceremony</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">11:00 &ndash; 11:30 AM</div><div class="agenda-details"><h4>Coffee Break</h4><span class="agenda-tag tag-break">Break</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">11:30 AM &ndash; 12:00 PM</div><div class="agenda-details"><h4>Keynote Session &mdash; Mdm. Anelia Anak Siam</h4><p>Director, Sarawak Museum Department &mdash; <em>Bridging the Knowledge: Open Science, Indigenous Wisdom, and Museum Curation</em></p><span class="agenda-tag tag-keynote">Keynote</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">12:00 &ndash; 12:30 PM</div><div class="agenda-details"><h4>Prof. Dr. Noorsaadah Abd. Rahman FASc</h4><p>Academy of Sciences Malaysia &mdash; <em>Accelerating the Malaysia Open Science Platform (MOSP): Strategies for Local Researchers</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">12:30 &ndash; 2:00 PM</div><div class="agenda-details"><h4>Lunch &amp; Networking</h4><span class="agenda-tag tag-break">Break</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">2:00 &ndash; 2:30 PM</div><div class="agenda-details"><h4>Zaliha binti Mohamad Ali</h4><p>Sarawak Multimedia Authority &mdash; <em>Frameworks for the Future: Navigating Data Management in Data-Intensive Research</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">2:30 &ndash; 3:00 PM</div><div class="agenda-details"><h4>Prof. Ir. Dr. Shaliza Ibrahim</h4><p>Universiti Malaya &mdash; <em>Rethinking Research Assessment: Harnessing the Synergies between Impact and Open Science</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">3:00 &ndash; 3:30 PM</div><div class="agenda-details"><h4>Prof. Dr. Marjolein Zweekhorst &amp; Dr. Sarju Sing Rai</h4><p>Vrije Universiteit (VU) Amsterdam, Netherlands &mdash; <em>Empowering the Public: The Growing Role of Citizen Science</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">3:30 &ndash; 4:00 PM</div><div class="agenda-details"><h4>Prof. Dr. Maninder Singh</h4><p>Thapar Institute of Engineering &amp; Technology, India &mdash; <em>Advancements in Data Management: Technological Perspectives from Indian Institutions</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">4:00 &ndash; 4:30 PM</div><div class="agenda-details"><h4>Prof. Ir. Dr. Rosalam Sarbatly</h4><p>Universiti Malaysia Sabah &mdash; <em>Citizen Science in Action: Collaborative Community Methodologies in Malaysia</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">4:30 PM</div><div class="agenda-details"><h4>End of Day 1</h4><span class="agenda-tag tag-break">Closing</span></div></div>
+            </div>
+            <div class="agenda-day" id="day2">
+                <div class="agenda-item reveal"><div class="agenda-time">8:00 &ndash; 9:00 AM</div><div class="agenda-details"><h4>Registration</h4><p>Day 2 arrival</p><span class="agenda-tag tag-break">Registration</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">9:00 &ndash; 9:30 AM</div><div class="agenda-details"><h4>Dr. Erika Lilja</h4><p>Tampere University, Finland &mdash; <em>Universal Accessibility: Successful Open Science Models from Finland</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">9:30 &ndash; 10:00 AM</div><div class="agenda-details"><h4>Prof. Dr. Nada Trunk &Scaron;irca &amp; Assoc. Prof. Dr. Ale&scaron; Trunk</h4><p>Intl. School for Social &amp; Business Studies / University of Primorska, Slovenia &mdash; <em>Strengthening Trust: Open Scientific Research and Research Integrity</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">10:00 &ndash; 10:30 AM</div><div class="agenda-details"><h4>Prof. Dr. Liew Chee Sun</h4><p>Sunway University, Malaysia &mdash; <em>Digital Tools and Infrastructure: The Role of Artificial Intelligence in Open Science</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">10:30 &ndash; 11:00 AM</div><div class="agenda-details"><h4>Coffee Break</h4><span class="agenda-tag tag-break">Break</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">11:00 &ndash; 11:30 AM</div><div class="agenda-details"><h4>Prof. Dr. Jayakumar Singh Bondili</h4><p>Narsee Monjee Institute of Management Studies (NMIMS) &mdash; <em>Bridging the Gap: Open Science Interoperability and FAIR Data in India</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">11:30 AM &ndash; 12:00 PM</div><div class="agenda-details"><h4>Citizen Science 1 &mdash; Dr. Jongkar Grinang &amp; Mr Kelvin Egay John</h4><p>Universiti Malaysia Sarawak &mdash; <em>From Public Data to Societal Impact: Community-Driven Science</em></p><span class="agenda-tag tag-citizen">Citizen Science</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">12:00 &ndash; 1:00 PM</div><div class="agenda-details"><h4>Lunch</h4><span class="agenda-tag tag-break">Break</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">1:00 &ndash; 2:00 PM</div><div class="agenda-details"><h4>Panel Discussion</h4><p><em>Unifying Science Across Borders: Navigating the Global Implementation of FAIR Data Standards</em><br>Moderator: Assoc. Prof. Dr. Abang Allan Mohamad (UNIMAS)<br>Panelists: Prof. Ir. Dr. Shaliza Ibrahim, Prof. Dr. Marjolein Zweekhorst, Prof. Dr. Maninder Singh, Prof. Dr. Nada Trunk &Scaron;irca, Prof. Dr. Jayakumar Singh Bondili, Dr. Erika Lilja</p><span class="agenda-tag tag-panel">Panel</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">2:00 &ndash; 2:30 PM</div><div class="agenda-details"><h4>Citizen Science 2 &mdash; Prof. Dr. Ramlah Zainuddin</h4><p>Universiti Malaysia Sarawak &mdash; <em>Artificial Intelligence in Bornean Biodiversity (AIBOB): AI Modelling and Data Analytics</em></p><span class="agenda-tag tag-citizen">Citizen Science</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">2:30 &ndash; 3:00 PM</div><div class="agenda-details"><h4>Prof. Dr. Wan Hashim Wan Ibrahim</h4><p>Universiti Malaysia Sarawak &mdash; <em>Localising Open Science: Sarawak&rsquo;s Push for Digital Innovation and Excellence</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
+                <div class="agenda-item reveal"><div class="agenda-time">3:00 PM</div><div class="agenda-details"><h4>Coffee Break &amp; End of Conference</h4><span class="agenda-tag tag-break">Closing</span></div></div>
+            </div>
+            <div class="agenda-downloads reveal">
+                <p>Download the full programme</p>
+                <div class="download-thumbs">
+                    <a href="OS Programme Book.pdf" target="_blank" class="download-thumb"><img src="programme1.jpg" alt="Programme Book"><div class="label">Programme Book (PDF)</div></a>
+                    <a href="programme1.jpg" target="_blank" class="download-thumb"><img src="programme1.jpg" alt="Day 1 Programme"><div class="label">Day 1 Programme</div></a>
+                    <a href="programme2.jpg" target="_blank" class="download-thumb"><img src="programme2.jpg" alt="Day 2 Programme"><div class="label">Day 2 Programme</div></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="section partners" id="partners">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Our Partners</div>
+                <h2 class="section-title">Supported By</h2>
+                <p class="section-desc">Proudly supported by BESarawak and leading institutions worldwide</p>
+            </div>
+
+            <!-- BESarawak / Local Support -->
+            <div class="partners-group reveal">
+                <div class="partners-sample">
+                    <img src="logos/Supported by sample.png" alt="Supported by partners">
+                </div>
+                <div class="partners-logos">
+                    <div class="partner-logo"><img src="logos/BESarawak Branding.png" alt="BESarawak"></div>
+                    <div class="partner-logo"><img src="logos/UNIMAS Logo.png" alt="UNIMAS"></div>
+                    <div class="partner-logo"><img src="logos/UM Logo.png" alt="Universiti Malaya"></div>
+                    <div class="partner-logo"><img src="logos/UMS Logo.png" alt="Universiti Malaysia Sabah"></div>
+                </div>
+            </div>
+
+            <!-- Global Collaboration -->
+            <div class="partners-group reveal">
+                <div class="partners-group-title">A Global Collaboration</div>
+                <div class="partners-sample">
+                    <img src="logos/A Global Collaboration Sample.png" alt="Global collaboration partners">
+                </div>
+                <div class="partners-logos">
+                    <div class="partner-logo"><img src="logos/NMIMS LOGO.png" alt="NMIMS"></div>
+                    <div class="partner-logo"><img src="logos/TIET LOGO.png" alt="Thapar Institute"></div>
+                    <div class="partner-logo"><img src="logos/9.png" alt="Partner Institution"></div>
+                    <div class="partner-logo"><img src="logos/10.png" alt="Partner Institution"></div>
+                    <div class="partner-logo"><img src="logos/11.png" alt="Partner Institution"></div>
+                    <div class="partner-logo"><img src="logos/12.png" alt="Partner Institution"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership / Sponsorship -->
+    <section class="section partnership" id="partnership">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Be Our Partner</div>
+                <h2 class="section-title">Sponsorship Packages</h2>
+                <p class="section-desc">Amplify your brand and market visibility at the UNIMAS Open Science Conference</p>
+            </div>
+            <div class="partnership-banner reveal"><img src="event5.jpg" alt="Partnership packages"></div>
+            <div class="partnership-grid reveal">
+                <div class="partnership-card gold">
+                    <div class="partnership-tier">Gold Partner</div>
+                    <div class="partnership-price">RM 10,000</div>
+                    <ul class="partnership-features">
+                        <li>Solo speaking slot</li>
+                        <li>Panel discussion slot</li>
+                        <li>Organisational brochure in conference kit</li>
+                        <li>Logo displayed on all promotional materials</li>
+                        <li>Social media promotion</li>
+                        <li>3 exhibitor passes</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-sky">Become Gold Partner</a>
+                </div>
+                <div class="partnership-card silver">
+                    <div class="partnership-tier">Silver Partner</div>
+                    <div class="partnership-price">RM 7,000</div>
+                    <ul class="partnership-features">
+                        <li>Organisational brochure in conference kit</li>
+                        <li>Logo displayed on promotional materials</li>
+                        <li>Social media promotion</li>
+                        <li>2 exhibitor passes</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline-blue">Become Silver Partner</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="register">
+        <div class="cta-content reveal">
+            <div class="section-tag">Don't Miss Out</div>
+            <h2>Register for UNIMAS Open Science Conference 2026</h2>
+            <p>Join researchers, policymakers, and innovators at Hilton Kuching this October</p>
+            <a href="#" class="btn btn-white">Register Now &rarr;</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo">
+                    <div class="logo-icon"><img src="logos/UNIMAS Logo.png" alt="UNIMAS"></div>
+                    <div class="nav-logo-text">
+                        <span class="top">UNIMAS<br>Open Science</span>
+                        <span class="bottom">Conference</span>
+                    </div>
+                </a>
+                <p>A Community-Driven University for a Sustainable World. The UNIMAS Open Science Conference is organised by the Chief Digital Officer's Office, Universiti Malaysia Sarawak.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">in</a>
+                    <a href="#" aria-label="LinkedIn">Li</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#speakers">Speakers</a></li>
+                    <li><a href="#agenda">Agenda</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#register">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://cdo.unimas.my/open-science/unimas-dataverse-main">UNIMAS Dataverse</a></li>
+                    <li><a href="https://cdo.unimas.my/open-science/open-asia">Open Asia</a></li>
+                    <li><a href="https://cdo.unimas.my/">CDO Office</a></li>
+                    <li><a href="https://www.unimas.my/">UNIMAS</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="https://cdo.unimas.my/">www.cdo.unimas.my</a></li>
+                    <li><a href="https://www.unimas.my/">Universiti Malaysia Sarawak</a></li>
+                    <li>94300 Kota Samarahan</li>
+                    <li>Sarawak, Malaysia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-logos">
+                <span class="footer-logo-item">UNIMAS</span>
+                <span class="footer-logo-item">CDO Office</span>
+                <span class="footer-logo-item">Open Asia</span>
+                <span class="footer-logo-item">European Union</span>
+                <span class="footer-logo-item">BESarawak</span>
+            </div>
+            <p>&copy; 2026 Universiti Malaysia Sarawak. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">&uarr;</button>
+
+    <script>
+        window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800));
+
+        (function() {
+            const c = document.getElementById('particles');
+            for (let i = 0; i < 25; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                p.style.animationDelay = (Math.random() * 10) + 's';
+                p.style.width = p.style.height = (Math.random() * 3 + 2) + 'px';
+                c.appendChild(p);
+            }
+        })();
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); });
+        function closeMobile() { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); }
+
+        document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        function updateCountdown() {
+            const diff = new Date('2026-10-21T08:00:00+08:00').getTime() - Date.now();
+            if (diff <= 0) return;
+            document.getElementById('cd-days').textContent = String(Math.floor(diff / 864e5)).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(Math.floor((diff % 864e5) / 36e5)).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(Math.floor((diff % 36e5) / 6e4)).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(Math.floor((diff % 6e4) / 1e3)).padStart(2, '0');
+        }
+        updateCountdown(); setInterval(updateCountdown, 1000);
+
+        function switchDay(day) {
+            document.querySelectorAll('.agenda-tab').forEach((t, i) => t.classList.toggle('active', i === day - 1));
+            document.querySelectorAll('.agenda-day').forEach((d, i) => d.classList.toggle('active', i === day - 1));
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const statObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const el = e.target, target = parseInt(el.dataset.target);
+                const suffix = target >= 100 ? '+' : '';
+                let cur = 0; const step = Math.max(1, Math.floor(target / 60));
+                const timer = setInterval(() => { cur += step; if (cur >= target) { cur = target; clearInterval(timer); } el.textContent = cur + suffix; }, 30);
+                statObs.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-value[data-target]').forEach(el => statObs.observe(el));
+
+        // Flip cards touch support
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+    </script>
+</body>
+</html>
