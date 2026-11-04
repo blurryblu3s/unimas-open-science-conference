@@ -261,39 +261,6 @@
         }
         .eu-banner strong { color: var(--deep); }
 
-        /* ===== COUNTDOWN ===== */
-        .countdown-section {
-            padding: 4rem 2rem; text-align: center;
-            background: var(--white);
-        }
-        .countdown-label {
-            font-size: 0.9rem; color: var(--text-light);
-            margin-bottom: 1.5rem; text-transform: uppercase;
-            letter-spacing: 3px; font-weight: 500;
-        }
-        .countdown {
-            display: flex; align-items: center; justify-content: center;
-            gap: 1.5rem; flex-wrap: wrap;
-        }
-        .countdown-item {
-            display: flex; flex-direction: column; align-items: center;
-            min-width: 100px;
-        }
-        .countdown-value {
-            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
-            background: var(--gradient-sky);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; line-height: 1;
-        }
-        .countdown-unit {
-            font-size: 0.75rem; text-transform: uppercase;
-            letter-spacing: 2px; color: var(--text-light); margin-top: 0.5rem;
-        }
-        .countdown-sep {
-            font-size: 2.5rem; font-weight: 300;
-            color: var(--baby); margin-top: -1rem;
-        }
-
         /* ===== SECTIONS ===== */
         .section { padding: 6rem 2rem; }
         .container { max-width: 1200px; margin: 0 auto; }
@@ -334,6 +301,65 @@
             box-shadow: 0 20px 60px rgba(3, 105, 161, 0.1);
         }
         .about-image img { display: block; width: 100%; }
+
+        /* ===== HIGHLIGHTS ===== */
+        .highlights { background: var(--white); }
+        .highlights-intro {
+            max-width: 800px; margin: 0 auto 3rem; text-align: center;
+        }
+        .highlights-intro p {
+            font-size: 0.95rem; color: var(--text-mid); line-height: 1.8;
+        }
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1.2rem;
+        }
+        .highlight-item {
+            position: relative; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--baby);
+            box-shadow: 0 8px 25px rgba(3, 105, 161, 0.08);
+            cursor: pointer; transition: all 0.4s ease;
+        }
+        .highlight-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(3, 105, 161, 0.15);
+        }
+        .highlight-item img {
+            display: block; width: 100%; height: 100%;
+            object-fit: cover; transition: transform 0.6s ease;
+        }
+        .highlight-item:hover img { transform: scale(1.05); }
+        .highlight-item .highlight-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 2rem 1.2rem 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            color: var(--white); opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .highlight-item:hover .highlight-caption { opacity: 1; }
+        .highlight-caption h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .highlight-caption p { font-size: 0.72rem; color: rgba(255,255,255,0.8); }
+        .highlight-item.span-2 { grid-column: span 2; }
+        .highlight-item.tall { grid-row: span 2; }
+        .highlights-cta {
+            text-align: center; margin-top: 2.5rem;
+        }
+        .highlights-cta p {
+            font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;
+        }
+        .highlights-cta .btn-group {
+            display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            .highlight-item.span-2 { grid-column: span 1; }
+            .highlight-item.tall { grid-row: span 1; }
+            .highlight-item .highlight-caption { opacity: 1; }
+        }
 
         /* ===== THEMES ===== */
         .themes { background: var(--ice); }
@@ -732,8 +758,6 @@
             .mobile-menu { display: flex; }
             .hero { padding: 7rem 1.5rem 3rem; }
             .hero-meta { flex-direction: column; gap: 0.8rem; }
-            .countdown { gap: 1rem; }
-            .countdown-sep { display: none; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .speakers-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 200px)); }
             .agenda-item { flex-direction: column; gap: 0.5rem; }
@@ -770,6 +794,7 @@
         </a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
+            <li><a href="#highlights">Highlights</a></li>
             <li><a href="#themes">Themes</a></li>
             <li><a href="#speakers">Speakers</a></li>
             <li><a href="#agenda">Agenda</a></li>
@@ -783,6 +808,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#about" onclick="closeMobile()">About</a>
+        <a href="#highlights" onclick="closeMobile()">Highlights</a>
         <a href="#themes" onclick="closeMobile()">Themes</a>
         <a href="#speakers" onclick="closeMobile()">Speakers</a>
         <a href="#agenda" onclick="closeMobile()">Agenda</a>
@@ -819,17 +845,63 @@
         Universiti Malaysia Sarawak &middot; Project Number 101128493
     </div>
 
-    <!-- Countdown -->
-    <section class="countdown-section">
-        <p class="countdown-label">Conference begins in</p>
-        <div class="countdown">
-            <div class="countdown-item"><span class="countdown-value" id="cd-days">00</span><span class="countdown-unit">Days</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-item"><span class="countdown-value" id="cd-hours">00</span><span class="countdown-unit">Hours</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-item"><span class="countdown-value" id="cd-minutes">00</span><span class="countdown-unit">Minutes</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-item"><span class="countdown-value" id="cd-seconds">00</span><span class="countdown-unit">Seconds</span></div>
+    <!-- Conference Highlights -->
+    <section class="section highlights" id="highlights">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">Conference Highlights</div>
+                <h2 class="section-title">Moments That Mattered</h2>
+                <p class="section-desc">Relive the best moments from the UNIMAS Open Science Conference 2026</p>
+            </div>
+
+            <div class="highlights-intro reveal">
+                <p>The UNIMAS Open Science Conference 2026, held alongside the 5th Consortium Meeting (CM5) of the ERASMUS+ OPEN-ASIA project, brought together international consortium members to evaluate the project's strategic trajectory and solidify European&ndash;Asian partnerships dedicated to advancing open science. A major milestone was the formalization of Memorandums of Collaboration (MoC) between UNIMAS and two prominent European institutions: Tampere University in Finland and the International School for Social and Business Studies (ISSBS) in Slovenia.</p>
+            </div>
+
+            <div class="highlights-grid reveal">
+                <div class="highlight-item span-2">
+                    <img src="highlights-group.jpg" alt="Group photo of all speakers and dignitaries">
+                    <div class="highlight-caption">
+                        <h4>Opening Ceremony</h4>
+                        <p>Speakers and dignitaries gather on stage at the Opening Ceremony</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <img src="highlights-audience.jpg" alt="Packed audience at the conference">
+                    <div class="highlight-caption">
+                        <h4>Full House</h4>
+                        <p>Delegates from across the globe at the Hilton Kuching</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <img src="highlights-moc-tampere.jpg" alt="MoC exchange between UNIMAS and Tampere University">
+                    <div class="highlight-caption">
+                        <h4>MoC Signing &mdash; Tampere University</h4>
+                        <p>Formalizing academic collaboration between UNIMAS and Tampere University, Finland</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <img src="highlights-moc-issbs.jpg" alt="MoC exchange between UNIMAS and ISSBS Slovenia">
+                    <div class="highlight-caption">
+                        <h4>MoC Signing &mdash; ISSBS Slovenia</h4>
+                        <p>Strengthening ties with the International School for Social and Business Studies</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <img src="highlights-panel.jpg" alt="Panel discussion on FAIR Data Standards">
+                    <div class="highlight-caption">
+                        <h4>Panel Discussion</h4>
+                        <p>Unifying Science Across Borders: The Global Implementation of FAIR Data Standards</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlights-cta reveal">
+                <p>View all conference photos</p>
+                <div class="btn-group">
+                    <a href="gallery.html" class="btn btn-sky">View Full Gallery</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1193,16 +1265,6 @@
         function closeMobile() { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); }
 
         document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-        function updateCountdown() {
-            const diff = new Date('2026-10-21T08:00:00+08:00').getTime() - Date.now();
-            if (diff <= 0) return;
-            document.getElementById('cd-days').textContent = String(Math.floor(diff / 864e5)).padStart(2, '0');
-            document.getElementById('cd-hours').textContent = String(Math.floor((diff % 864e5) / 36e5)).padStart(2, '0');
-            document.getElementById('cd-minutes').textContent = String(Math.floor((diff % 36e5) / 6e4)).padStart(2, '0');
-            document.getElementById('cd-seconds').textContent = String(Math.floor((diff % 6e4) / 1e3)).padStart(2, '0');
-        }
-        updateCountdown(); setInterval(updateCountdown, 1000);
 
         function switchDay(day) {
             document.querySelectorAll('.agenda-tab').forEach((t, i) => t.classList.toggle('active', i === day - 1));

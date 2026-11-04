@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | UNIMAS Open Science Conference 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sky: #38BDF8;
+            --sky-light: #7DD3FC;
+            --baby: #BAE6FD;
+            --baby-light: #E0F2FE;
+            --ice: #F0F9FF;
+            --deep: #0284C7;
+            --deeper: #0369A1;
+            --dark: #0C4A6E;
+            --text-dark: #0F172A;
+            --text: #1E293B;
+            --text-mid: #475569;
+            --text-light: #64748B;
+            --white: #FFFFFF;
+            --gradient-sky: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%);
+            --gradient-hero: linear-gradient(135deg, #0369A1 0%, #0284C7 30%, #38BDF8 70%, #7DD3FC 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: var(--white); color: var(--text); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; }
+
+        /* Header */
+        .gallery-header {
+            background: var(--gradient-hero);
+            padding: 6rem 2rem 3rem;
+            text-align: center; color: var(--white);
+            position: relative;
+        }
+        .gallery-header::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(to top, var(--white) 0%, transparent 100%);
+        }
+        .back-link {
+            position: absolute; top: 1.5rem; left: 2rem;
+            color: rgba(255,255,255,0.8); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.3s;
+            z-index: 1;
+        }
+        .back-link:hover { color: var(--white); }
+        .gallery-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .gallery-header p {
+            font-size: 1.05rem; color: rgba(255,255,255,0.8);
+            max-width: 600px; margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+        .filter-tabs {
+            display: inline-flex; gap: 0.5rem;
+            background: var(--ice); padding: 6px;
+            border-radius: 50px;
+        }
+        .filter-tab {
+            padding: 10px 28px; border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            border: none; background: transparent;
+            color: var(--text-mid); transition: all 0.3s ease;
+        }
+        .filter-tab.active {
+            background: var(--gradient-sky); color: var(--white);
+            box-shadow: 0 2px 10px rgba(56,189,248,0.3);
+        }
+        .filter-tab:hover:not(.active) { color: var(--deep); }
+
+        .photo-count {
+            text-align: center; padding: 0.5rem 2rem 1rem;
+            font-size: 0.8rem; color: var(--text-light);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            max-width: 1400px; margin: 0 auto;
+            padding: 1rem 2rem 4rem;
+        }
+        .gallery-grid {
+            columns: 4;
+            column-gap: 12px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            border-radius: 12px; overflow: hidden;
+            cursor: pointer; position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(3, 105, 161, 0.15);
+        }
+        .gallery-item img {
+            display: block; width: 100%;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.03); }
+        .gallery-item.hidden { display: none; }
+
+        /* Lightbox */
+        .lightbox {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92); z-index: 9999;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90vw; max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute; top: 1.5rem; right: 2rem;
+            background: none; border: none; color: var(--white);
+            font-size: 2rem; cursor: pointer; opacity: 0.7;
+            transition: opacity 0.3s; z-index: 1;
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-close:hover { opacity: 1; }
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.1); border: none;
+            color: var(--white); font-size: 2rem; cursor: pointer;
+            width: 56px; height: 56px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0.6; transition: all 0.3s;
+        }
+        .lightbox-nav:hover { opacity: 1; background: rgba(255,255,255,0.2); }
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+        .lightbox-counter {
+            position: absolute; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6); font-size: 0.85rem;
+        }
+
+        /* Footer */
+        .gallery-footer {
+            background: var(--text-dark); color: rgba(255,255,255,0.5);
+            text-align: center; padding: 2rem;
+            font-size: 0.8rem;
+        }
+        .gallery-footer a { color: var(--sky-light); }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .gallery-grid { columns: 3; } }
+        @media (max-width: 768px) {
+            .gallery-grid { columns: 2; column-gap: 8px; }
+            .gallery-item { margin-bottom: 8px; border-radius: 8px; }
+            .gallery-header { padding: 5rem 1.5rem 2.5rem; }
+            .lightbox-nav { width: 44px; height: 44px; font-size: 1.5rem; }
+            .lightbox-prev { left: 0.5rem; }
+            .lightbox-next { right: 0.5rem; }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { columns: 2; column-gap: 6px; }
+            .gallery-item { margin-bottom: 6px; border-radius: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="gallery-header">
+    <a href="index.html" class="back-link">&larr; Back to Conference</a>
+    <h1>Photo Gallery</h1>
+    <p>UNIMAS Open Science Conference 2026 &mdash; 21 &amp; 22 October, Hilton Kuching</p>
+</header>
+
+<div class="filter-section">
+    <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterPhotos('all')">All Photos</button>
+        <button class="filter-tab" onclick="filterPhotos('day1')">Day 1</button>
+        <button class="filter-tab" onclick="filterPhotos('day2')">Day 2</button>
+    </div>
+</div>
+<div class="photo-count" id="photoCount"></div>
+
+<div class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- Photos will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<footer class="gallery-footer">
+    <p>&copy; 2026 UNIMAS Open Science Conference &middot; <a href="index.html">Back to main site</a></p>
+</footer>
+
+<script>
+    // Photo data - will be populated based on downloaded files
+    const photos = [];
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    // Scan for gallery images
+    function buildPhotoList() {
+        // Day 1 - Ceremony
+        for (let i = 1; i <= 55; i++) {
+            photos.push({
+                src: `gallery/day1/ceremony_${String(i).padStart(3,'0')}.jpg`,
+                day: 'day1',
+                category: 'Opening Ceremony'
+            });
+        }
+        // Day 1 - Speakers
+        for (let i = 1; i <= 14; i++) {
+            photos.push({
+                src: `gallery/day1/speakers_${String(i).padStart(3,'0')}.jpg`,
+                day: 'day1',
+                category: 'Speakers'
+            });
+        }
+        // Day 2
+        for (let i = 1; i <= 25; i++) {
+            photos.push({
+                src: `gallery/day2/day2_${String(i).padStart(3,'0')}.jpg`,
+                day: 'day2',
+                category: 'Day 2'
+            });
+        }
+    }
+
+    function renderGallery() {
+        galleryGrid.innerHTML = '';
+        let loadedCount = 0;
+
+        photos.forEach((photo, index) => {
+            const item = document.createElement('div');
+            item.className = `gallery-item`;
+            item.dataset.day = photo.day;
+            item.dataset.index = index;
+
+            const img = document.createElement('img');
+            img.src = photo.src;
+            img.alt = `Conference photo - ${photo.category}`;
+            img.loading = 'lazy';
+            img.onerror = function() { item.style.display = 'none'; };
+            img.onload = function() {
+                loadedCount++;
+                updateCount();
+            };
+
+            item.appendChild(img);
+            item.addEventListener('click', () => openLightbox(index));
+            galleryGrid.appendChild(item);
+        });
+
+        function updateCount() {
+            const visible = document.querySelectorAll('.gallery-item:not([style*="display: none"]):not(.hidden)');
+            document.getElementById('photoCount').textContent = `${visible.length} photos`;
+        }
+        setTimeout(updateCount, 3000);
+    }
+
+    let currentFilter = 'all';
+
+    function filterPhotos(filter) {
+        currentFilter = filter;
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            if (filter === 'all' || item.dataset.day === filter) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+
+        const visible = document.querySelectorAll('.gallery-item:not([style*="display: none"]):not(.hidden)');
+        document.getElementById('photoCount').textContent = `${visible.length} photos`;
+    }
+
+    // Lightbox
+    let currentLightboxIndex = 0;
+
+    function getVisiblePhotos() {
+        return Array.from(document.querySelectorAll('.gallery-item:not([style*="display: none"]):not(.hidden)'));
+    }
+
+    function openLightbox(index) {
+        const visible = getVisiblePhotos();
+        const item = document.querySelector(`.gallery-item[data-index="${index}"]`);
+        currentLightboxIndex = visible.indexOf(item);
+        if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+        showLightboxImage();
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(dir) {
+        const visible = getVisiblePhotos();
+        currentLightboxIndex = (currentLightboxIndex + dir + visible.length) % visible.length;
+        showLightboxImage();
+    }
+
+    function showLightboxImage() {
+        const visible = getVisiblePhotos();
+        if (visible.length === 0) return;
+        const item = visible[currentLightboxIndex];
+        const img = item.querySelector('img');
+        document.getElementById('lightboxImg').src = img.src;
+        document.getElementById('lightboxCounter').textContent =
+            `${currentLightboxIndex + 1} / ${visible.length}`;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        const lb = document.getElementById('lightbox');
+        if (!lb.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+
+    // Click outside image to close
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+
+    // Init
+    buildPhotoList();
+    renderGallery();
+</script>
+
+</body>
+</html>
