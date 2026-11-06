@@ -556,6 +556,46 @@
         .tag-panel { background: #F3E8FF; color: #7C3AED; }
         .tag-citizen { background: #D1FAE5; color: #065F46; }
 
+        /* Presentation Slides tab */
+        .slides-day-heading {
+            font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700;
+            color: var(--deeper); margin: 2rem 0 1rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--baby);
+        }
+        .slides-day-heading:first-child { margin-top: 0; }
+        .slide-card {
+            display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.5rem;
+            border: 1px solid var(--baby); border-radius: 12px; margin-bottom: 0.75rem;
+            transition: all 0.3s ease; background: var(--white);
+        }
+        .slide-card:hover {
+            border-color: var(--sky); transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 105, 161, 0.1);
+        }
+        .slide-icon {
+            width: 48px; height: 48px; border-radius: 10px; display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--white);
+        }
+        .slide-icon.pptx { background: linear-gradient(135deg, #D97706, #F59E0B); }
+        .slide-icon.pdf { background: linear-gradient(135deg, #DC2626, #EF4444); }
+        .slide-info { flex: 1; min-width: 0; }
+        .slide-info h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.2rem; }
+        .slide-info p { font-size: 0.8rem; color: var(--text-mid); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .slide-time { font-size: 0.75rem; font-weight: 600; color: var(--deep); background: var(--baby-light); padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+        .slide-download {
+            display: inline-flex; align-items: center; gap: 0.4rem; padding: 8px 16px;
+            border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+            background: var(--gradient-sky); color: var(--white); text-decoration: none;
+            transition: opacity 0.3s; flex-shrink: 0;
+        }
+        .slide-download:hover { opacity: 0.85; }
+        @media (max-width: 768px) {
+            .slide-card { flex-wrap: wrap; gap: 0.8rem; padding: 1rem; }
+            .slide-info p { white-space: normal; }
+        }
+
         .agenda-downloads { margin-top: 2.5rem; text-align: center; }
         .agenda-downloads p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem; }
         .download-thumbs { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
@@ -760,6 +800,8 @@
             .hero-meta { flex-direction: column; gap: 0.8rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .speakers-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 200px)); }
+            .agenda-tabs { flex-wrap: wrap; }
+            .agenda-tab { padding: 10px 20px; font-size: 0.8rem; }
             .agenda-item { flex-direction: column; gap: 0.5rem; }
             .agenda-time { min-width: unset; }
             .partnership-grid { grid-template-columns: 1fr; }
@@ -1062,6 +1104,7 @@
             <div class="agenda-tabs reveal">
                 <button class="agenda-tab active" onclick="switchDay(1)">Day 1 &middot; Wed, 21 Oct</button>
                 <button class="agenda-tab" onclick="switchDay(2)">Day 2 &middot; Thu, 22 Oct</button>
+                <button class="agenda-tab" onclick="switchDay(3)">Presentation Slides</button>
             </div>
             <div class="agenda-day active" id="day1">
                 <div class="agenda-item reveal"><div class="agenda-time">8:00 &ndash; 8:30 AM</div><div class="agenda-details"><h4>Registration</h4><p>Arrival and conference kit collection</p><span class="agenda-tag tag-break">Registration</span></div></div>
@@ -1090,6 +1133,91 @@
                 <div class="agenda-item reveal"><div class="agenda-time">2:00 &ndash; 2:30 PM</div><div class="agenda-details"><h4>Citizen Science 2 &mdash; Prof. Dr. Ramlah Zainuddin</h4><p>Universiti Malaysia Sarawak &mdash; <em>Artificial Intelligence in Bornean Biodiversity (AIBOB): AI Modelling and Data Analytics</em></p><span class="agenda-tag tag-citizen">Citizen Science</span></div></div>
                 <div class="agenda-item reveal"><div class="agenda-time">2:30 &ndash; 3:00 PM</div><div class="agenda-details"><h4>Prof. Dr. Wan Hashim Wan Ibrahim</h4><p>Universiti Malaysia Sarawak &mdash; <em>Localising Open Science: Sarawak&rsquo;s Push for Digital Innovation and Excellence</em></p><span class="agenda-tag tag-speaker">Speaker</span></div></div>
                 <div class="agenda-item reveal"><div class="agenda-time">3:00 PM</div><div class="agenda-details"><h4>Coffee Break &amp; End of Conference</h4><span class="agenda-tag tag-break">Closing</span></div></div>
+            </div>
+            <div class="agenda-day" id="slides">
+                <h3 class="slides-day-heading">Day 1 &mdash; Wednesday, 21 October 2026</h3>
+
+                <a href="Presentation/Day 1/7. presentation citizen science and local knowledge in open science.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Marjolein Zweekhorst &amp; Dr. Sarju Sing Rai</h4>
+                        <p>Empowering the Public: The Growing Role of Citizen Science</p>
+                    </div>
+                    <span class="slide-time">3:00 PM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 1/8. Advancements_in_Data_Management_Thapar_upload.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Maninder Singh</h4>
+                        <p>Advancements in Data Management: Technological Perspectives from Indian Institutions</p>
+                    </div>
+                    <span class="slide-time">3:30 PM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <h3 class="slides-day-heading">Day 2 &mdash; Thursday, 22 October 2026</h3>
+
+                <a href="Presentation/Day 2/1. Erika Lilja Universal Accessibility.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Dr. Erika Lilja</h4>
+                        <p>Universal Accessibility: Successful Open Science Models from Finland</p>
+                    </div>
+                    <span class="slide-time">9:00 AM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 2/2. Strengthening_Trust_OPEN_ASIA_2026_Participants_No_Notes.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Nada Trunk &Scaron;irca &amp; Assoc. Prof. Dr. Ale&scaron; Trunk</h4>
+                        <p>Strengthening Trust: Open Scientific Research and Research Integrity</p>
+                    </div>
+                    <span class="slide-time">9:30 AM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 2/3. P. LCS_UNIMAS-OSC-2026.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Liew Chee Sun</h4>
+                        <p>Digital Tools and Infrastructure: The Role of Artificial Intelligence in Open Science</p>
+                    </div>
+                    <span class="slide-time">10:00 AM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 2/FAIR JKS.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Jayakumar Singh Bondili</h4>
+                        <p>Bridging the Gap: Open Science Interoperability and FAIR Data in India</p>
+                    </div>
+                    <span class="slide-time">11:00 AM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 2/20261022_UOSC-Grinang et al.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Dr. Jongkar Grinang &amp; Mr Kelvin Egay John</h4>
+                        <p>From Public Data to Societal Impact: Community-Driven Science</p>
+                    </div>
+                    <span class="slide-time">11:30 AM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
+
+                <a href="Presentation/Day 2/WIWH_Localising Open Science_ UNIMAS's Push for Digital Innovation and Excellence.pdf" class="slide-card reveal" target="_blank">
+                    <div class="slide-icon pdf">PDF</div>
+                    <div class="slide-info">
+                        <h4>Prof. Dr. Wan Hashim Wan Ibrahim</h4>
+                        <p>Localising Open Science: Sarawak&rsquo;s Push for Digital Innovation and Excellence</p>
+                    </div>
+                    <span class="slide-time">2:30 PM</span>
+                    <span class="slide-download">&#8595; View PDF</span>
+                </a>
             </div>
             <div class="agenda-downloads reveal">
                 <p>Download the full programme</p>
