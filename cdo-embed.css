@@ -1,0 +1,280 @@
+/* UNIMAS Open Science Conference — CDO Embed Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+#uosc { font-family: 'Poppins', sans-serif; color: #1E293B; overflow-x: hidden; }
+#uosc *, #uosc *::before, #uosc *::after { box-sizing: border-box; }
+#uosc a { text-decoration: none; color: inherit; }
+#uosc img { max-width: 100%; height: auto; }
+
+#uosc .uosc-section { padding: 6rem 2rem; }
+#uosc .uosc-container { max-width: 1200px; margin: 0 auto; }
+#uosc .uosc-header { text-align: center; margin-bottom: 4rem; }
+#uosc .uosc-tag {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 3px;
+    color: #0284C7; margin-bottom: 1rem;
+}
+#uosc .uosc-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+    color: #0F172A;
+}
+#uosc .uosc-desc {
+    font-size: 1.05rem; color: #475569;
+    max-width: 650px; margin: 0 auto; line-height: 1.7;
+}
+#uosc .uosc-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    border: none; cursor: pointer; transition: all 0.3s ease;
+}
+#uosc .uosc-btn-sky {
+    background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%);
+    color: #fff; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+}
+#uosc .uosc-btn-sky:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(56, 189, 248, 0.45); }
+#uosc .uosc-btn-outline {
+    background: transparent; color: #0284C7;
+    border: 2px solid #BAE6FD;
+}
+#uosc .uosc-btn-outline:hover { border-color: #38BDF8; color: #0369A1; }
+
+#uosc .uosc-reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+#uosc .uosc-reveal.uosc-visible { opacity: 1; transform: translateY(0); }
+
+/* EU Banner */
+#uosc .uosc-eu-banner {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; padding: 0.8rem 2rem;
+    background: #E0F2FE; border-bottom: 1px solid #BAE6FD;
+    font-size: 0.8rem; color: #475569;
+    flex-wrap: wrap; text-align: center;
+}
+#uosc .uosc-eu-banner strong { color: #0284C7; }
+
+/* Highlights */
+#uosc .uosc-highlights { background: #fff; }
+#uosc .uosc-highlights-intro { max-width: 800px; margin: 0 auto 3rem; text-align: center; }
+#uosc .uosc-highlights-intro p { font-size: 0.95rem; color: #475569; line-height: 1.8; }
+#uosc .uosc-highlights-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto; gap: 1.2rem;
+}
+#uosc .uosc-highlight-item {
+    position: relative; border-radius: 16px; overflow: hidden;
+    border: 1px solid #BAE6FD; box-shadow: 0 8px 25px rgba(3, 105, 161, 0.08);
+    cursor: pointer; transition: all 0.4s ease;
+}
+#uosc .uosc-highlight-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(3, 105, 161, 0.15); }
+#uosc .uosc-highlight-item img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+#uosc .uosc-highlight-item:hover img { transform: scale(1.05); }
+#uosc .uosc-highlight-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.2rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    color: #fff; opacity: 0; transition: opacity 0.3s ease;
+}
+#uosc .uosc-highlight-item:hover .uosc-highlight-caption { opacity: 1; }
+#uosc .uosc-highlight-caption h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
+#uosc .uosc-highlight-caption p { font-size: 0.72rem; color: rgba(255,255,255,0.8); }
+#uosc .uosc-highlight-item.uosc-span-2 { grid-column: span 2; }
+#uosc .uosc-highlights-cta { text-align: center; margin-top: 2.5rem; }
+#uosc .uosc-highlights-cta p { font-size: 0.85rem; color: #64748B; margin-bottom: 1rem; }
+
+/* About */
+#uosc .uosc-about { background: #fff; }
+#uosc .uosc-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+#uosc .uosc-about-content h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; color: #0F172A; }
+#uosc .uosc-about-content p { color: #475569; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+#uosc .uosc-about-content .uosc-btn { margin-top: 1rem; }
+#uosc .uosc-about-image { border-radius: 20px; overflow: hidden; border: 1px solid #BAE6FD; box-shadow: 0 20px 60px rgba(3, 105, 161, 0.1); }
+#uosc .uosc-about-image img { display: block; width: 100%; }
+
+/* Themes */
+#uosc .uosc-themes { background: #F0F9FF; }
+#uosc .uosc-themes-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+#uosc .uosc-themes-col-title { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.8rem; }
+#uosc .uosc-features-list { display: flex; flex-direction: column; gap: 1.2rem; }
+#uosc .uosc-feature-card {
+    display: flex; align-items: center; gap: 1.2rem;
+    background: #fff; border-radius: 16px; padding: 1.2rem 1.5rem;
+    border: 1px solid #BAE6FD; box-shadow: 0 4px 20px rgba(3, 105, 161, 0.06);
+    transition: all 0.3s ease;
+}
+#uosc .uosc-feature-card:hover { transform: translateX(8px); box-shadow: 0 8px 30px rgba(3, 105, 161, 0.12); }
+#uosc .uosc-feature-card .uosc-feat-icon { width: 60px; height: 60px; flex-shrink: 0; }
+#uosc .uosc-feature-card .uosc-feat-icon svg { width: 100%; height: 100%; }
+#uosc .uosc-feature-card h3 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #0F172A; }
+#uosc .uosc-topics-list { display: flex; flex-direction: column; gap: 1.2rem; }
+#uosc .uosc-topic-item { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 0; transition: all 0.3s ease; }
+#uosc .uosc-topic-item:hover { transform: translateX(8px); }
+#uosc .uosc-topic-label { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #0F172A; flex: 1; }
+#uosc .uosc-topic-icon { width: 60px; height: 60px; flex-shrink: 0; }
+#uosc .uosc-topic-icon svg { width: 100%; height: 100%; }
+
+/* Stats */
+#uosc .uosc-stats {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0369A1 0%, #0284C7 30%, #38BDF8 70%, #7DD3FC 100%);
+    color: #fff;
+}
+#uosc .uosc-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+#uosc .uosc-stat-value { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1; margin-bottom: 0.5rem; }
+#uosc .uosc-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Speakers */
+#uosc .uosc-speakers { background: #fff; }
+#uosc .uosc-speakers-category { margin-bottom: 3rem; }
+#uosc .uosc-speakers-category:last-child { margin-bottom: 0; }
+#uosc .uosc-speakers-cat-title {
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 3px; color: #0284C7; margin-bottom: 1.5rem; text-align: center;
+}
+#uosc .uosc-speakers-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+    gap: 1.5rem; justify-content: center;
+}
+#uosc .uosc-speaker-card {
+    background: #fff; border: 1px solid #BAE6FD;
+    border-radius: 16px; padding: 2rem 1.5rem;
+    text-align: center; transition: all 0.3s ease;
+}
+#uosc .uosc-speaker-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(3, 105, 161, 0.1); }
+#uosc .uosc-speaker-avatar {
+    width: 140px; height: 140px; border-radius: 50%;
+    margin: 0 auto 1.2rem; overflow: hidden;
+    border: 3px solid #BAE6FD; background: #f1f5f9;
+}
+#uosc .uosc-speaker-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+#uosc .uosc-speaker-card h4 { font-size: 0.95rem; font-weight: 600; color: #0F172A; margin-bottom: 0.3rem; }
+#uosc .uosc-speaker-card .uosc-affiliation { font-size: 0.72rem; color: #0284C7; margin-top: 0.3rem; font-weight: 500; }
+
+/* Agenda */
+#uosc .uosc-agenda { background: #fff; }
+#uosc .uosc-agenda-tabs { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+#uosc .uosc-agenda-tab {
+    padding: 12px 32px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    border: 2px solid #BAE6FD; background: transparent;
+    color: #475569; transition: all 0.3s ease;
+}
+#uosc .uosc-agenda-tab.uosc-active {
+    background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%);
+    border-color: transparent; color: #fff;
+}
+#uosc .uosc-agenda-tab:hover:not(.uosc-active) { border-color: #38BDF8; color: #0284C7; }
+#uosc .uosc-agenda-day { display: none; }
+#uosc .uosc-agenda-day.uosc-active { display: block; }
+#uosc .uosc-agenda-item {
+    display: flex; gap: 2rem; padding: 1.5rem 0;
+    border-bottom: 1px solid #E0F2FE; align-items: flex-start;
+}
+#uosc .uosc-agenda-item:last-child { border-bottom: none; }
+#uosc .uosc-agenda-time { min-width: 140px; font-size: 0.85rem; font-weight: 600; color: #0284C7; padding-top: 2px; white-space: nowrap; }
+#uosc .uosc-agenda-details h4 { font-size: 1rem; font-weight: 600; color: #0F172A; margin-bottom: 0.3rem; }
+#uosc .uosc-agenda-details p { font-size: 0.85rem; color: #475569; line-height: 1.5; }
+#uosc .uosc-agenda-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-top: 0.5rem;
+}
+#uosc .uosc-tag-ceremony { background: #FEF3C7; color: #92400E; }
+#uosc .uosc-tag-keynote { background: #DBEAFE; color: #1E40AF; }
+#uosc .uosc-tag-speaker { background: #E0F2FE; color: #0369A1; }
+#uosc .uosc-tag-break { background: #F1F5F9; color: #64748B; }
+#uosc .uosc-tag-panel { background: #F3E8FF; color: #7C3AED; }
+#uosc .uosc-tag-citizen { background: #D1FAE5; color: #065F46; }
+
+/* Slides */
+#uosc .uosc-slides-heading {
+    font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700;
+    color: #0369A1; margin: 2rem 0 1rem; padding-bottom: 0.5rem;
+    border-bottom: 2px solid #BAE6FD;
+}
+#uosc .uosc-slides-heading:first-child { margin-top: 0; }
+#uosc .uosc-slide-card {
+    display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.5rem;
+    border: 1px solid #BAE6FD; border-radius: 12px; margin-bottom: 0.75rem;
+    transition: all 0.3s ease; background: #fff;
+}
+#uosc .uosc-slide-card:hover { border-color: #38BDF8; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(3, 105, 161, 0.1); }
+#uosc .uosc-slide-icon {
+    width: 48px; height: 48px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #fff;
+    background: linear-gradient(135deg, #DC2626, #EF4444);
+}
+#uosc .uosc-slide-info { flex: 1; min-width: 0; }
+#uosc .uosc-slide-info h4 { font-size: 0.95rem; font-weight: 600; color: #0F172A; margin-bottom: 0.2rem; }
+#uosc .uosc-slide-info p { font-size: 0.8rem; color: #475569; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#uosc .uosc-slide-time { font-size: 0.75rem; font-weight: 600; color: #0284C7; background: #E0F2FE; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+#uosc .uosc-slide-dl {
+    display: inline-flex; align-items: center; gap: 0.4rem; padding: 8px 16px;
+    border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+    background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%);
+    color: #fff; transition: opacity 0.3s; flex-shrink: 0;
+}
+#uosc .uosc-slide-dl:hover { opacity: 0.85; }
+
+/* Programme download */
+#uosc .uosc-downloads { margin-top: 2.5rem; text-align: center; }
+#uosc .uosc-downloads p { font-size: 0.85rem; color: #64748B; margin-bottom: 1rem; }
+#uosc .uosc-download-thumb {
+    display: inline-block; width: 200px; border-radius: 12px; overflow: hidden;
+    border: 1px solid #BAE6FD; transition: all 0.3s ease; cursor: pointer;
+}
+#uosc .uosc-download-thumb:hover { border-color: #38BDF8; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(3, 105, 161, 0.12); }
+#uosc .uosc-download-thumb img { display: block; width: 100%; }
+#uosc .uosc-download-thumb .uosc-dl-label { padding: 8px; text-align: center; background: #F0F9FF; font-size: 0.75rem; font-weight: 600; color: #475569; }
+
+/* Partners */
+#uosc .uosc-partners { background: #F0F9FF; }
+#uosc .uosc-partners-group { margin-bottom: 3rem; }
+#uosc .uosc-partners-group:last-child { margin-bottom: 0; }
+#uosc .uosc-partners-group-title {
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 3px; color: #0284C7; margin-bottom: 2rem; text-align: center;
+}
+#uosc .uosc-partners-sample {
+    max-width: 700px; margin: 0 auto 2rem;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid #BAE6FD; box-shadow: 0 8px 25px rgba(3, 105, 161, 0.06);
+}
+#uosc .uosc-partners-sample img { display: block; width: 100%; }
+#uosc .uosc-partners-premium {
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto 2rem;
+}
+#uosc .uosc-partner-logo { width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+#uosc .uosc-partner-logo:hover { transform: translateY(-3px); }
+#uosc .uosc-partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+#uosc .uosc-partner-logo.uosc-premium { width: 180px; height: 180px; }
+#uosc .uosc-partners-logos {
+    display: flex; align-items: center; justify-content: center;
+    gap: 2.5rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 1024px) { #uosc .uosc-about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+@media (max-width: 768px) {
+    #uosc .uosc-highlights-grid { grid-template-columns: 1fr; }
+    #uosc .uosc-highlight-item.uosc-span-2 { grid-column: span 1; }
+    #uosc .uosc-highlight-caption { opacity: 1; }
+    #uosc .uosc-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    #uosc .uosc-speakers-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 200px)); }
+    #uosc .uosc-agenda-tab { padding: 10px 20px; font-size: 0.8rem; }
+    #uosc .uosc-agenda-item { flex-direction: column; gap: 0.5rem; }
+    #uosc .uosc-agenda-time { min-width: unset; }
+    #uosc .uosc-section { padding: 4rem 1.5rem; }
+    #uosc .uosc-partner-logo { width: 90px; height: 90px; padding: 8px; }
+    #uosc .uosc-slide-card { flex-wrap: wrap; gap: 0.8rem; padding: 1rem; }
+    #uosc .uosc-slide-info p { white-space: normal; }
+}
+@media (max-width: 480px) {
+    #uosc .uosc-speakers-grid { grid-template-columns: 1fr; }
+    #uosc .uosc-themes-layout { grid-template-columns: 1fr; }
+}
